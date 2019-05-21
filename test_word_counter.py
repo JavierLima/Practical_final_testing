@@ -86,7 +86,5 @@ def test_word_empty_text():
     assert word_counter("") == None
 
 if __name__ == '__main__':
-    import nltk
-    nltk.download('stopwords')
     test_word_counter_spanish()
     test_word_counter_first_input_integer()
