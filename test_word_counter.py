@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import pytest
-from src.tdd.top_20_tweets_counter import word_counter
+from twitter_word_counter import word_counter
 
 def test_word_counter_spanish():
     assert word_counter("Vamos a llevarnos bien, porque si no va a haber hondonadas de ostias aqui",'spanish') == ({'vamos': 1, 'llevarnos': 1,
