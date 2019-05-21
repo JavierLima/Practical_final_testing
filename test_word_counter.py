@@ -87,4 +87,4 @@ def test_word_empty_text():
 
 if __name__ == '__main__':
     test_word_counter_spanish()
-    test_word_counter_first_input_integer():
+    test_word_counter_first_input_integer()
