@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 
 
-from ..src.word_counter import word_counter
-from ..src.twitter_word_counter import twitter_word_counter
-
 import unittest
 from mock import MagicMock
 from requests.exceptions import HTTPError
+from ..src.word_counter import word_counter
+from ..src.twitter_word_counter import twitter_word_counter
+
 
 class KnownValues(unittest.TestCase):
     def test_tweets_words_counter_several_tweets(self):
