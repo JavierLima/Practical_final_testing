@@ -9,7 +9,7 @@ import twitter
 import operator
 import os
 import requests
-from word_counter import word_counter
+from src/word_counter import word_counter
 from mock import MagicMock
         
 class twitter_word_counter(object):
