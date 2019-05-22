@@ -1,7 +1,7 @@
 ﻿#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from src import word_counter
+from .src import word_counter
 from src.word_counter import word_counter
 from src import twitter_word_counter
 from src.twitter_word_counter import twitter_word_counter
