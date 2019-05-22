@@ -3,14 +3,14 @@
 
 from __future__ import unicode_literals
 from nltk.corpus import stopwords
-from word_counter import word_counter
 
 import collections
 import twitter
 import operator
 import os
 import requests
- 
+from word_counter import word_counter
+from mock import MagicMock
         
 class twitter_word_counter(object):
     
