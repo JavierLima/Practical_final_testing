@@ -12,7 +12,7 @@ import operator
 import os
 import requests
 
-def word_counter(text, language = 'english'):
+def word_counter(text, language = 'spanish'):
     
     if(type(text) is not str or type(language) is not str):
         raise(TypeError)
