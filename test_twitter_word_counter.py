@@ -4,6 +4,7 @@
 from word_counter import word_counter
 from twitter_word_counter import twitter_word_counter
 
+import unittest
 from mock import MagicMock
 from requests.exceptions import HTTPError
 
