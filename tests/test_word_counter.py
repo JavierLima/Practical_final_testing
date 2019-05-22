@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import unittest
-import word_counter
+from ..src.word_counter import word_counter
 
 class KnownValues(unittest.TestCase):
     def test_word_counter_spanish(self):
