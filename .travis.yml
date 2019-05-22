@@ -1,6 +1,5 @@
 language: python
 python:
-   - "3.5"
    - "3.6"
 cache: pip
 install: 
@@ -8,10 +7,7 @@ install:
 script: 
    - python -m nltk.downloader 'stopwords'
    - python -m unittest code_folder.tests.test_word_counter.KnownValues
-   - pytest --cov=code_folder tests/
-   - coverage run tests/test_word_counter.py
-   - coverage report tests/test_word_counter.py
+   - coverage run code_folder/tests/test_word_counter.py
    - python -m unittest code_folder.tests.test_twitter_word_counter.KnownValues
-   - pytest --cov=code_folder tests/
-   - coverage run tests/test_twitter_word_counter.py
-   - coverage report tests/test_twitter_word_counter.py
+   - coverage run code_folder/tests/test_twitter_word_counter.py
+   - coverage report 
