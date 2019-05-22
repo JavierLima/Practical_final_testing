@@ -3,7 +3,7 @@
 
 from __future__ import unicode_literals
 from nltk.corpus import stopwords
-from mock import MagicMock
+from word_counter import word_counter
 
 import collections
 import twitter
