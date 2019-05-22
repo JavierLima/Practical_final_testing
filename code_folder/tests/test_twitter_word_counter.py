@@ -5,8 +5,8 @@
 import unittest
 from mock import MagicMock
 from requests.exceptions import HTTPError
-from ..src.word_counter import word_counter
-from ..src.twitter_word_counter import twitter_word_counter
+from code_folder.src.word_counter import word_counter
+from code_folder.src.twitter_word_counter import twitter_word_counter
 
 
 class KnownValues(unittest.TestCase):

@@ -9,7 +9,7 @@ import twitter
 import operator
 import os
 import requests
-
+from code_folder.src.word_counter import word_counter
         
 class twitter_word_counter(object):
     
