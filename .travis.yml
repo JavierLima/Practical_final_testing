@@ -8,3 +8,4 @@ install:
 script: 
    - python -m nltk.downloader 'stopwords'
    - python test_word_counter.py
+   - coverage run test_word_counter.py
