@@ -12,7 +12,7 @@ from requests.exceptions import HTTPError
 class KnownValues(unittest.TestCase):
     def test_tweets_words_counter_several_tweets(self):
         tweets = ['En tanto en cuanto nos den lo que es nuestro, discutiremos ese concepto con el fin de discutirlo…', 
-              'El concepto, es el concepto',
+              'El concepto, es el concepto' ,
               'El señor Villambrosa, que es un "gentelmán", me dijo que viniera a resolver esto con "pacisfismo", así que A, lo mismo que le digo una cosa le digo la otra, y B…, cuidado, que igual te viene la C…',
               'Bueno, vamos a llevarnos bien porque si no van a haber hondonadas de hostias aquí, ¿eh?',
               '¿No le he dicho ya que soy abogao? Payaso... ¡Idiota!',
