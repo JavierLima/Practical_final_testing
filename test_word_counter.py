@@ -7,10 +7,10 @@ from twitter_word_counter import word_counter
 
 class KnownValues(unittest.TestCase):
     def test_word_counter_spanish():
-        assert word_counter("Vamos a llevarnos bien, porque si no va a haber hondonadas de ostias aqui",'spanish') == ({'vamos': 1, 'llevarnos': 1,
+        self.assertEqual(word_counter("Vamos a llevarnos bien, porque si no va a haber hondonadas de ostias aqui",'spanish'),({'vamos': 1, 'llevarnos': 1,
                                                                                                                    'bien': 1, 'si': 1, 'va': 1,
                                                                                                                    'haber': 1, 'hondonadas': 1,
-                                                                                                                   'ostias': 1, 'aqui':1})
+                                                                                                                   'ostias': 1, 'aqui':1}))
 
     def test_word_counter_first_input_integer():
         with pytest.raises(TypeError):
