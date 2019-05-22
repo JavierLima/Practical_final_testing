@@ -7,9 +7,9 @@ install:
    - "pip install -r requirements.txt"
 script: 
    - python -m nltk.downloader 'stopwords'
-   - python -m unittest src.tests.test_word_counter.KnownValues
-   - coverage run src/tests/test_word_counter.py
-   - coverage report -m src/tests/test_word_counter.py
-   - python -m unittest src.tests.test_twitter_word_counter.KnownValues
-   - coverage run src/tests/test_twitter_word_counter.py
-   - coverage report -m src/tests/test_twitter_word_counter.py
+   - python -m unittest tests.test_word_counter.KnownValues
+   - coverage run tests/test_word_counter.py
+   - coverage report -m tests/test_word_counter.py
+   - python -m unittest tests.test_twitter_word_counter.KnownValues
+   - coverage run tests/test_twitter_word_counter.py
+   - coverage report -m tests/test_twitter_word_counter.py
