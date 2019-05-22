@@ -8,10 +8,10 @@ install:
 script: 
    - python -m nltk.downloader 'stopwords'
    - python -m unittest code_folder.tests.test_word_counter.KnownValues
-   - pytest --cov=code_folder/tests/test_word_counter.py
+   - pytest --cov=code_folder tests/
    - coverage run -m code_folder/tests/test_word_counter.py
    - coverage report -m code_folder/tests/test_word_counter.py
    - python -m unittest code_folder.tests.test_twitter_word_counter.KnownValues
-   - pytest --cov=code_folder/tests/test_twitter_word_counter.py
+   - pytest --cov=code_folder tests/
    - coverage run -m code_folder/tests/test_twitter_word_counter.py
    - coverage report -m code_folder/tests/test_twitter_word_counter.py
