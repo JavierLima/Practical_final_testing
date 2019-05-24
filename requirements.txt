@@ -25,3 +25,4 @@ mock == 2.0.0
 behave ==1.2.6
 selenium == 3.141.0
 jsonschema == 2.6.0
+django == 2.2
