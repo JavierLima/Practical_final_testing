@@ -17,6 +17,14 @@ script:
    - ls -l
    - cd ..
    - ls -l
+   - cd ..
+   - ls -l
+   - cd ..
+   - ls -l
+   - cd ..
+   - ls -l
+   - cd ..
+   - ls -l
    - cd venv
    - pip install django
    - cd ..
