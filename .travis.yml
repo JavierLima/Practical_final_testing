@@ -3,9 +3,11 @@ python:
    - "3.6"
 cache: pip
 env:
-   - virtualenv venv
+   - DJANGO_VERSION=1.11.5
 install: 
    - "pip install -r requirements.txt"
+before_install:
+   - export PYTHONPATH=$HOME/builds/JavierLima/Practical_final_testing
 script: 
    - python -m nltk.downloader 'stopwords'
    - python -m unittest code_folder.tests.test_word_counter.KnownValues
