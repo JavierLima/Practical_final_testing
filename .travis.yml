@@ -13,9 +13,6 @@ script:
    - coverage run --source=code_folder/tests -m unittest discover -s code_folder/tests
    - coverage report code_folder/tests/*.py
    - source venv/bin/activate
-   - cd venv
-   - pip install - r requirements.txt
-   - cd ..
    - python web/manage.py runserver
    - cd code_folder/tests/features
    - behave
