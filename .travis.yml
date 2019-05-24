@@ -2,6 +2,8 @@ language: python
 python:
    - "3.6"
 cache: pip
+env:
+  - DJANGO_VERSION=1.11.5
 install: 
    - "pip install -r requirements.txt"
 script: 
