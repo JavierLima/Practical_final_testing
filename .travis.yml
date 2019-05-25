@@ -2,7 +2,7 @@ language: python
 os:
   - linux
 python:
-   - "3.6"
+   - "3.7"
 addons:
   chrome: stable 
 
@@ -10,7 +10,7 @@ cache: pip
 
 before_install:
    - sudo apt-get install chromium-chromedriver -y
-   - export PYTHONPATH="/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages"
+   - export PYTHONPATH="/home/travis/virtualenv/python3.7/lib/python3.6/site-packages"
 
 install: 
    - pip install -r requirements.txt
