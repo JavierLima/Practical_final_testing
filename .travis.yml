@@ -3,11 +3,18 @@ os:
   - linux
 python:
    - "3.6"
+addons:
+  chrome: stable
+
 cache: pip
 env:
    - DJANGO_VERSION=1.4.1
 before_install:
+   - wget http://chromedriver.storage.googleapis.com/2.24/chromedriver_linux64.zip
+   - unzip chromedriver_linux64.zip -d /home/travis/JavierLima/Practical_final_testing
+   - export CHROME_BIN=chromium-browser
    - export PYTHONPATH="/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages"
+
 install: 
    - "pip install -r requirements.txt"
    - "pip install django==$DJANGO_VERSION --quiet"
