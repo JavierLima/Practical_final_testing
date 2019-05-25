@@ -4,10 +4,11 @@ python:
 cache: pip
 env:
    - DJANGO_VERSION=1.11.5
-install: 
-   - "pip install -r requirements.txt"
 before_install:
    - export PYTHONPATH=$HOME/builds/JavierLima/Practical_final_testing
+install: 
+   - "pip install -r requirements.txt"
+   - "pip install django==$DJANGO --quiet"
 script: 
    - python -m nltk.downloader 'stopwords'
    - python -m unittest code_folder.tests.test_word_counter.KnownValues
@@ -15,7 +16,6 @@ script:
    - coverage run --source=code_folder/tests -m unittest discover -s code_folder/tests
    - coverage report code_folder/tests/*.py
    - source venv/bin/activate
-   - pip install django==$DJANGO --quiet
    - python web/manage.py runserver
    - cd code_folder/tests/features
    - behave
