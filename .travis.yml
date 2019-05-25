@@ -12,8 +12,6 @@ env:
 before_install:
    - wget http://chromedriver.storage.googleapis.com/2.24/chromedriver_linux64.zip
    - unzip chromedriver_linux64.zip -d code_folder/tests/features/driver
-   - cd code_folder/tests/features/driver
-   - ls -l
    - export PYTHONPATH="/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages"
 
 install: 
