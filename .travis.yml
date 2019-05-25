@@ -14,6 +14,7 @@ cache: pip
 before_install:
    - wget http://chromedriver.storage.googleapis.com/74.0.3729.6/chromedriver_linux64.zip
    - unzip chromedriver_linux64.zip -d code_folder/tests/driver
+   - chmod +x code_folder/tests/driver/chromedriver
    - sudo apt-get install python3-pip
    - sudo pip3 install virtualenv
 
@@ -28,10 +29,10 @@ script:
    - coverage run --source=code_folder/tests -m unittest discover -s code_folder/tests
    - coverage report code_folder/tests/*.py
    - python3.7 web/manage.py runserver &
-   - sleep 20
-   - ps aux
-   - curl localhost:8000
-   - netstat -atu
+   - sleep 10
+#   - ps aux
+#   - curl localhost:8000
+#   - netstat -atu
 
 after_success:
    - cd code_folder/tests/features
