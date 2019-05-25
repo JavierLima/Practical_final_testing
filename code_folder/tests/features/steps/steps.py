@@ -2,13 +2,14 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys 
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
 import json
 
 
 @given('we visit our localhost')
 def go_to_localhost(context):
   context.driver.get('localhost:8000')
-  context.driver.implicitly_wait(10)
   
 @given('write username "{text}"')
 def write_username(context,text):
@@ -27,7 +28,8 @@ def press_enter(context):
   
 @when('we press reset')
 def press_reset(context):
-  button = context.driver.find_element_by_id('reset_button')
+  button = WebDriverWait(context.driver, 10).until(EC.presence_of_element_located((By.ID, "reset_button")))
+  #button = context.driver.find_element_by_id('reset_button')
   button.click()
   
 @when('reset checkbox')
@@ -70,54 +72,3 @@ def catch_no_body_execption(context):
 def check_empty_checkbox(context):
   element = context.driver.find_element_by_xpath('//*[@id="id_your_name"]')#xpath checkbox
   assert element.text == ''
-
-'''
-@step
-def write_username(step, username):
-    text = context.driver.find_element_by_name("text")
-    text.send_keys(username)
-    context.username = username
-
-@step
-def press_execute(step):
-	submit_button = context.driver.find_element_by_name('Get Tweets')
-	submit_button.click()
-
-
-def get_words(step):
-	assert context.username == expected
-
-@step
-def press_return(steo):
-	reset=world.driver.find_element_by_id("reset")
-
-
-
-
-#CODIGO DE EJEMPLO COPIADO A PARTIR DE AQUI 
-
-
-
-
-@step
-def i_put_it_in_upper_case(step):
-    reset = world.driver.find_element_by_id("reset")
-    execute = world.driver.find_element_by_id("execute")
-    execute.send_keys("\n")
-    p1 = world.driver.find_element_by_id("p1")
-    world.string = p1.text
-
-
-@step
-def see_the_string_is(step, expected):
-
-    assert world.string == expected
-    world.driver.close()
-
-
-@step
-def see_the_number_is(step, expected):
-
-    assert world.string == expected
-    world.driver.close()
-'''
