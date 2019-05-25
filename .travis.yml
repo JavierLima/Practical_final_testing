@@ -24,7 +24,7 @@ script:
    - coverage report code_folder/tests/*.py
    - python web/manage.py runserver &
    - sleep 10
-
+   - lsof -i 
 after_success:
    - cd code_folder/tests/features
    - behave
