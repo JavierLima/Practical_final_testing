@@ -11,6 +11,7 @@ import json
 @given('we visit our localhost')
 def go_to_localhost(context):
   context.driver.get('localhost:8000')
+  context.driver.implicit_wait(10)
   
 @given('write username "{text}"')
 def write_username(context,text):
