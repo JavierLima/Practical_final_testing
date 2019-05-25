@@ -3,7 +3,6 @@ language: python
 os:
   - linux
 dist: xenial   # required for Python >= 3.7
-language: python
 
 python:
   - "3.7"
@@ -29,8 +28,10 @@ script:
    - coverage run --source=code_folder/tests -m unittest discover -s code_folder/tests
    - coverage report code_folder/tests/*.py
    - python3.7 web/manage.py runserver &
-   - sleep 10
+   - sleep 20
+   - ps aux
    - curl localhost:8000
+   - netstat -atu
 
 after_success:
    - cd code_folder/tests/features
