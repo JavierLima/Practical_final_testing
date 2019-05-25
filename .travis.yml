@@ -16,6 +16,9 @@ before_install:
    - unzip chromedriver_linux64.zip -d code_folder/tests/driver
    - cd code_folder/tests/driver
    - chmod +x chromedriver
+   - cd ..
+   - cd ..
+   - cd ..
    - export CHROME_BIN=chromium-browser
 
 install: 
