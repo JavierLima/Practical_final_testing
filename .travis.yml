@@ -10,15 +10,12 @@ cache: pip
 env:
    - DJANGO_VERSION=1.4.1
 before_install:
-   - wget http://chromedriver.storage.googleapis.com/2.24/chromedriver_linux64.zip
-   - unzip chromedriver_linux64.zip -d code_folder/tests/features/driver
-   - export CHROME_BIN=chromium-browser
-   - chmod +x code_folder/tests/features/driver/chromedriver
+   - apt-get install chromium-chromedriver -y
    - export PYTHONPATH="/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages"
 
 install: 
-   - "pip install -r requirements.txt"
-   - "pip install django==$DJANGO_VERSION --quiet"
+   - pip install -r requirements.txt
+   - pip install django==$DJANGO_VERSION --quiet
 
 script: 
    - python -m nltk.downloader 'stopwords'
