@@ -1,16 +1,22 @@
+
 language: python
 os:
   - linux
+dist: xenial   # required for Python >= 3.7
+language: python
+
 python:
-   - "3.6"
+  - "3.7"
 addons:
   chrome: stable 
 
 cache: pip
 
 before_install:
-   - sudo apt-get install chromium-chromedriver -y
-   - export PYTHONPATH="/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages"
+   - wget http://chromedriver.storage.googleapis.com/74.0.3729.6/chromedriver_linux64.zip
+   - unzip chromedriver_linux64.zip -d tests/driver
+   - sudo apt-get install python3-pip
+   - sudo pip3 install virtualenv
 
 install: 
    - pip install -r requirements.txt
@@ -22,11 +28,9 @@ script:
    - python -m unittest code_folder.tests.test_twitter_word_counter.KnownValues
    - coverage run --source=code_folder/tests -m unittest discover -s code_folder/tests
    - coverage report code_folder/tests/*.py
-   - django-admin startproject web .
-   - sleep 20
-   - ps aux
+   - python3.7 web/manage.py runserver &
+   - sleep 10
    - curl localhost:8000
-   - netstat -atu
 
 after_success:
    - cd code_folder/tests/features
