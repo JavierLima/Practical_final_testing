@@ -16,6 +16,7 @@ before_install:
    - unzip chromedriver_linux64.zip -d code_folder/tests/features/driver
    - chmod +x code_folder/tests/features/driver/chromedriver
    - export CHROME_BIN=chromium-browser
+   - sudo apt-get install fim
 
 install: 
    - pip install -r requirements.txt
@@ -36,6 +37,6 @@ script:
 after_success:
    - cd code_folder/tests/features
    - behave
-   - eog /tmp/google.png
+   - fim -a tmp/google.png
 
 
