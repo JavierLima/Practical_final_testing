@@ -5,7 +5,7 @@ cache: pip
 env:
    - DJANGO_VERSION=1.4.1
 before_install:
-   - export PYTHONPATH="/usr/local/lib/python2.7/dist-packages"
+   - export PYTHONPATH="/usr/local/lib/python3.6/dist-packages"
 install: 
    - "pip install -r requirements.txt"
    - "pip install django==$DJANGO_VERSION --quiet"
@@ -16,7 +16,9 @@ script:
    - coverage run --source=code_folder/tests -m unittest discover -s code_folder/tests
    - coverage report code_folder/tests/*.py
    - source venv/bin/activate
-   - python web/manage.py syncdb
+   - cd /usr/local/lib
+   - ls -l 
+   - python web/manage.py runserver
    - cd code_folder/tests/features
    - behave
 
