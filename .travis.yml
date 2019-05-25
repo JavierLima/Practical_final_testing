@@ -1,4 +1,6 @@
 language: python
+os:
+  - linux
 python:
    - "3.6"
 cache: pip
@@ -17,6 +19,8 @@ script:
    - coverage report code_folder/tests/*.py
    - source venv/bin/activate
    - python web/manage.py runserver
+
+after_success:
    - cd code_folder/tests/features
    - behave
 
