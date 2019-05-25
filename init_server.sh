@@ -1,3 +1,4 @@
 #!/bin/bash
 
-python web/manage.py runserver
+source venv/bin/activate
+python3.7 web/manage.py runserver
