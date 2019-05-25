@@ -30,7 +30,7 @@ script:
    - python3.7 web/manage.py runserver &
    - sleep 10
 #   - ps aux
-#   - curl localhost:8000
+   - curl localhost:8000
 #   - netstat -atu
 
 after_success:
