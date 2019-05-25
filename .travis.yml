@@ -11,18 +11,9 @@ env:
    - DJANGO_VERSION=1.4.1
 before_install:
    - wget http://chromedriver.storage.googleapis.com/2.24/chromedriver_linux64.zip
-   - ls -l 
-   - cd ..
+   - unzip chromedriver_linux64.zip -d code_folder/tests/features/driver
+   - cd code_folder/tests/features/driver
    - ls -l
-   - cd ..
-   - ls -l
-   - ls -l 
-   - cd ..
-   - ls -l
-   - cd ..
-   - ls -l
-   - unzip chromedriver_linux64.zip -d /home/travis/JavierLima/Practical_final_testing
-   - export CHROME_BIN=chromium-browser
    - export PYTHONPATH="/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages"
 
 install: 
