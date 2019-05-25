@@ -3,7 +3,7 @@ python:
    - "3.6"
 cache: pip
 env:
-   - DJANGO_VERSION=1.11.5
+   - DJANGO_VERSION=1.4.1
 before_install:
    - export PYTHONPATH=$HOME/builds/JavierLima/Practical_final_testing
 install: 
