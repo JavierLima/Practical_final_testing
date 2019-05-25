@@ -4,7 +4,7 @@ os:
 python:
    - "3.6"
 addons:
-  chrome: stable 2.24
+  chrome: stable 
 
 cache: pip
 env:
@@ -12,6 +12,7 @@ env:
 before_install:
    - wget http://chromedriver.storage.googleapis.com/2.24/chromedriver_linux64.zip
    - unzip chromedriver_linux64.zip -d code_folder/tests/features/driver
+   - export CHROME_BIN=chromium-browser
    - chmod +x code_folder/tests/features/driver/chromedriver
    - export PYTHONPATH="/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages"
 
