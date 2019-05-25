@@ -15,6 +15,7 @@ before_install:
    - wget http://chromedriver.storage.googleapis.com/74.0.3729.6/chromedriver_linux64.zip
    - unzip chromedriver_linux64.zip -d code_folder/tests/driver
    - chmod +x code_folder/tests/driver/chromedriver
+   - export CHROME_BIN=chromium-browser
    - sudo apt-get install python3-pip
    - sudo pip3 install virtualenv
 
