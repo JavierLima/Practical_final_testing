@@ -5,7 +5,7 @@ cache: pip
 env:
    - DJANGO_VERSION=1.4.1
 before_install:
-   - export PYTHONPATH=$HOME/builds/JavierLima/Practical_final_testing
+   - export PYTHONPATH="/usr/local/lib/python2.7/dist-packages"
 install: 
    - "pip install -r requirements.txt"
    - "pip install django==$DJANGO_VERSION --quiet"
