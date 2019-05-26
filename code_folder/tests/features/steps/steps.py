@@ -10,7 +10,7 @@ import json
 
 @given('we visit our localhost')
 def go_to_localhost(context):
-  context.driver.get('http://www.google.com')
+  context.driver.get('localhost:8000')
   print(context.driver.title)
   print(context.driver.current_url)
   context.driver.set_page_load_timeout(30)
