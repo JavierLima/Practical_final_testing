@@ -30,6 +30,7 @@ script:
    - coverage report code_folder/tests/*.py
    - python3.7 web/manage.py runserver &
    - sleep 10
+   - whereis google-chrome-stable
 #   - ps aux
    - curl localhost:8000
 #   - netstat -atu
