@@ -16,7 +16,7 @@ def go_to_localhost(context):
   context.driver.set_page_load_timeout(30)
   context.driver.implicitly_wait(30)
   element = context.driver.find_element_by_xpath('/html')#xpath checkbox
-  print(element.title)
+  print(element.text)
 
 @given('write username "{text}"')
 def write_username(context,text):
