@@ -15,7 +15,7 @@ def go_to_localhost(context):
   print(context.driver.current_url)
   context.driver.set_page_load_timeout(30)
   context.driver.implicitly_wait(30)
-  element = context.driver.find_element_by_xpath('//*[@id="hplogo"]/a/img ')#xpath checkbox
+  element = context.driver.find_element_by_xpath('/html')#xpath checkbox
   print(element.title)
 
 @given('write username "{text}"')
