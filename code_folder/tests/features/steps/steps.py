@@ -29,8 +29,9 @@ def press_enter(context):
   
 @when('we press reset')
 def press_reset(context):
-  WebDriverWait(context.driver, 10).until(EC.element_to_be_clickable((By.ID, 'reset_button'))).click()
+  element = WebDriverWait(context.driver, 20).until(EC.element_to_be_clickable((By.ID, 'reset_button')))
   #context.driver.find_element_by_id('reset_button').click()
+  element.click()
   
 @when('reset checkbox')
 def reset_checkbox(context):
