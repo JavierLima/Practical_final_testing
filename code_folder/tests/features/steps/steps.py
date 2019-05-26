@@ -11,6 +11,8 @@ import json
 @given('we visit our localhost')
 def go_to_localhost(context):
   context.driver.get('http://www.google.com')
+  print(context.driver.title)
+  print(context.driver.current_url)
   context.driver.set_page_load_timeout(30)
   context.driver.implicitly_wait(30)
   element = context.driver.find_element_by_xpath('//*[@id="hplogo"]/a/img ')#xpath checkbox
