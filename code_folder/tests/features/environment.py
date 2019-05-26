@@ -7,7 +7,7 @@ def before_scenario(context,scenario):
     options.binary_location = '/usr/bin/google-chrome-stable'
     options.add_argument("--headless")
     options.add_argument("--no-sandbox")
-    otions.add_argument("--disable-gpu")
+    options.add_argument("--disable-gpu")
 #    options.add_argument("--disable-dev-shm-usage")
     context.driver = webdriver.Chrome("driver/chromedriver", options=options)
 
