@@ -39,9 +39,8 @@ def reset_checkbox(context):
   
 @when('we try reset')
 def press_reset(context):
-  #button = context.driver.find_element_by_id('reset_button')
-
-  #button.click()
+  button = context.driver.find_element_by_id('reset_button')
+  button.click()
   
 @then('I see the tittle web Twitter top words finder')
 def check_title(context):
