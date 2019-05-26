@@ -37,6 +37,7 @@ script:
 after_success:
    - cd code_folder/tests/features
    - behave
+   - ls -l
    - eog tmp/google.png
 
 
