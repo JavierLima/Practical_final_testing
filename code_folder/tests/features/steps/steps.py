@@ -3,8 +3,6 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys 
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 import json
 
 
@@ -14,7 +12,6 @@ def go_to_localhost(context):
 
 @given('write username "{text}"')
 def write_username(context,text):
-  print(context.driver.title)
   context.driver.find_element_by_xpath('//*[@id="id_your_name"]').send_keys(text)#xpath checkbox
 
 @when('we press search')
@@ -29,19 +26,14 @@ def press_enter(context):
   
 @when('we press reset')
 def press_reset(context):
-  element = WebDriverWait(context.driver, 20).until(EC.element_to_be_clickable((By.ID, 'reset_button')))
-  #context.driver.find_element_by_id('reset_button').click()
-  element.click()
+  button = context.driver.find_element_by_id('reset_button').click()
+  button.click()
   
 @when('reset checkbox')
 def reset_checkbox(context):
   element = context.driver.find_element_by_xpath('//*[@id="id_your_name"]')#xpath checkbox
   element.clear()
   
-@when('we try reset')
-def press_reset(context):
-  button = context.driver.find_element_by_id('reset_button')
-  button.click()
   
 @then('I see the tittle web Twitter top words finder')
 def check_title(context):
