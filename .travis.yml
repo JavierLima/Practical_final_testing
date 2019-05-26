@@ -32,7 +32,7 @@ script:
    - whereis google-chrome-stable
 #   - ps aux
    - curl localhost:8000
-#   - netstat -atu
+   - netstat -atu
 
 after_success:
    - cd code_folder/tests/features
