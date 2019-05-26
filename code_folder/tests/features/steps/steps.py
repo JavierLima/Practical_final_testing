@@ -10,11 +10,12 @@ import json
 
 @given('we visit our localhost')
 def go_to_localhost(context):
-  context.driver.get('localhost:8000')
+  context.driver.get('http://www.google.com')
   context.driver.set_page_load_timeout(30)
   context.driver.implicitly_wait(30)
-  context.driver.get_screenshot_as_file('/tmp/google.png') 
-  
+  element = context.driver.find_element_by_xpath('//*[@id="hplogo"]/a/img ')#xpath checkbox
+  print(element.title)
+
 @given('write username "{text}"')
 def write_username(context,text):
   element = context.driver.find_element_by_xpath('//*[@id="id_your_name"]')#xpath checkbox
