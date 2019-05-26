@@ -15,7 +15,7 @@
 # numpy==1.13.3
 # scipy==1.0
 
-twitter == 1.18.0
+python-twitter
 nltk == 3.4
 requests == 2.21.0
 unittest2 == 1.1.0
