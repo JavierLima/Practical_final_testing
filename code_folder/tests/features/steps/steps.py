@@ -11,15 +11,10 @@ import json
 @given('we visit our localhost')
 def go_to_localhost(context):
   context.driver.get('http://localhost:8000')
-  print(context.driver.title)
-  print(context.driver.current_url)
-  context.driver.set_page_load_timeout(30)
-  context.driver.implicitly_wait(30)
-  element = context.driver.find_element_by_xpath('/html')#xpath checkbox
-  print(element.text)
 
 @given('write username "{text}"')
 def write_username(context,text):
+  print(context.driver.title)
   element = context.driver.find_element_by_xpath('//*[@id="id_your_name"]')#xpath checkbox
   element.send_keys(text)
 
