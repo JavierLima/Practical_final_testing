@@ -26,8 +26,7 @@ def press_enter(context):
   
 @when('we press reset')
 def press_reset(context):
-  button = context.driver.find_element_by_id('reset_button').click()
-  button.click()
+  context.driver.find_element_by_id('reset_button').click()
   
 @when('reset checkbox')
 def reset_checkbox(context):
