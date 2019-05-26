@@ -15,8 +15,7 @@ def go_to_localhost(context):
 @given('write username "{text}"')
 def write_username(context,text):
   print(context.driver.title)
-  element = context.driver.find_element_by_xpath('//*[@id="id_your_name"]')#xpath checkbox
-  element.send_keys(text)
+  context.driver.find_element_by_xpath('//*[@id="id_your_name"]').send_keys(text)#xpath checkbox
 
 @when('we press search')
 def press_search(context):
@@ -30,9 +29,8 @@ def press_enter(context):
   
 @when('we press reset')
 def press_reset(context):
-  button = WebDriverWait(context.driver, 10).until(EC.presence_of_element_located((By.ID, "reset_button")))
-  #button = context.driver.find_element_by_id('reset_button')
-  button.click()
+  #button = WebDriverWait(context.driver, 10).until(EC.presence_of_element_located((By.ID, "reset_button")))
+  context.driver.find_element_by_id('reset_button').click()
   
 @when('reset checkbox')
 def reset_checkbox(context):
