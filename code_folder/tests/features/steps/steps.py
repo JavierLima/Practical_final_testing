@@ -29,8 +29,8 @@ def press_enter(context):
   
 @when('we press reset')
 def press_reset(context):
-  #button = WebDriverWait(context.driver, 10).until(EC.presence_of_element_located((By.ID, "reset_button")))
-  context.driver.find_element_by_id('reset_button').click()
+  WebDriverWait(context.driver, 10).until(EC.element_to_be_clickable((By.ID, 'reset_button'))).click()
+  #context.driver.find_element_by_id('reset_button').click()
   
 @when('reset checkbox')
 def reset_checkbox(context):
@@ -40,7 +40,7 @@ def reset_checkbox(context):
 @when('we try reset')
 def press_reset(context):
   #button = context.driver.find_element_by_id('reset_button')
-  WebDriverWait(context.driver, 10).until(EC.element_to_be_clickable((By.ID, 'reset_button'))).click()
+
   #button.click()
   
 @then('I see the tittle web Twitter top words finder')
