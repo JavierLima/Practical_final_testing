@@ -10,7 +10,7 @@ def before_scenario(context,scenario):
     options.add_argument("--disable-gpu")
     options.add_argument("--disable-dev-shm-usage")
     context.driver = webdriver.Chrome("driver/chromedriver", options=options)
-    context.implicitly_wait(5)
+    context.driver.implicitly_wait(5)
 
 def after_scenario(context,scenario):
     context.driver.close()
