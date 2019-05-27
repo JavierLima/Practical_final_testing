@@ -18,8 +18,13 @@ def home(request):
             # process the data in form.cleaned_data as required
             #nltk.download()
             print(form.cleaned_data)
-            model = twitter_word_counter(form.cleaned_data['your_name'], 'spanish')
-            result = model.top_20_repetitive_word_counter()
+#            model = twitter_word_counter(form.cleaned_data['your_name'], 'spanish')
+#            result = model.top_20_repetitive_word_counter()
+            
+            
+            twitter_counter = twitter_word_counter('english')
+            result = twitter_counter.get_final_data(form.cleaned_data['your_name'])
+            
             print(result)
 
             # html = render_to_string('about.html', {'title': title, 'author': author})

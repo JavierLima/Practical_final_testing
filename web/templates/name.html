@@ -67,8 +67,29 @@
 </nav>
 
 
-    {% if data %}
 
+
+<!--     <table class="table pl-3 pr-3"> -->
+<!--       <thead> -->
+<!--         <tr> -->
+<!--           <th scope="col">Nombre</th> -->
+<!--           <th scope="col">Numero</th> -->
+<!--         </tr> -->
+<!--     </thead> -->
+<!--       <tbody> -->
+<!--         {% for k in data %} -->
+<!--         <tr> -->
+<!--           <td>{{ k.0 }}</td> -->
+<!--             <td>{{ k.1 }}</td> -->
+<!--         </tr> -->
+<!--         {% endfor %} -->
+<!--     </tbody> -->
+<!--   </table> -->
+
+  {% if data %}
+  
+    {% for k in data.items %}
+  
     <table class="table pl-3 pr-3">
       <thead>
         <tr>
@@ -77,14 +98,34 @@
         </tr>
     </thead>
       <tbody>
-        {% for k in data %}
         <tr>
-          <td>{{ k.0 }}</td>
-            <td>{{ k.1 }}</td>
+            <td scope="col">{{ k.0 }}</td>
+            <td scope="col">{{ k.1.count }}</td>
         </tr>
-        {% endfor %}
     </tbody>
   </table>
+  
+  <table class="table pl-3 pr-3">
+    <thead>
+      <tr>
+        <th scope="col">Tweeet</th>
+      </tr>
+  </thead>
+    <tbody>
+    {% for t in k.1.tweetsContaining %}
+      <tr>
+          <td>{{ t }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<br>
+<br>
+  
+    
+
+    {% endfor %}
     {% endif %}
 
 

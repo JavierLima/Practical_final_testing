@@ -1,119 +1,116 @@
-﻿#!/usr/local/Cellar/python/3.7.2_1/Frameworks/Python.framework/Versions/3.7/bin/python3
-# -*- coding: utf-8 -*-
 
+from __future__ import print_function
 from __future__ import unicode_literals
 from nltk.corpus import stopwords
-import nltk
-
-
-import collections
-import twitter
-import operator
-import os
+import json
 import sys
+from datetime import date
+import twitter
+import re
+import string
+import operator
+import collections
 
-
-def word_counter(text, language = 'spanish'):
     
-    if(type(text) is not str or type(language) is not str):
-        raise(TypeError)
-        
-    punctuation_marks = ["?", "¿", "¡", "!", " ", ",", ".", ";", ":","/","\""]
-    
-    filtred_text = ""
-    
-    for letter in text:
-        if(letter not in punctuation_marks):
-            filtred_text = filtred_text + letter
-        else:
-            filtred_text = filtred_text + " "
-        
-    filtred_text = filtred_text.lower().split()
-    stop_words = set(stopwords.words(language))
-    
-    result_words = []
-    trash_items = ["https","\\t","co"]
-    
-    for word in filtred_text:
-        if(word not in stop_words and word not in trash_items):
-            result_words.append(word)
-    
-    if(len(result_words) == 0):
-        return None
-    
-    return collections.Counter(result_words)
- 
-        
 class twitter_word_counter(object):
     
-    def __init__(self,username, language):
+    def __init__(self, language):
         self.twitter_api = twitter.Api('gz2EucWLrJHTX2GjuMFxYN2la','e0vmSGeIlnHWbVGPO2YbfiPMUiZXh9DQDBML2fu0tqOoqylUXx','1115702759888523265-bbLQl3rRdu9beHs1UoyRXUZZfkqWv6','EttVVAmzpgvd6wnSO596xUIEzL7zGmqptXUQm6D2IACKS')
-        self.username = username
         self.language = language
-    
-    def get_last_50_tweets(self):
+        self.timeline = []
+
         
-        try:
-            tweets = self.twitter_api.GetUserTimeline(screen_name = self.username,count = 400, include_rts=False)
-        except: 
-            return []
-        tweets_text = []
-        max_tweets = 50
-        for i in range(0,len(tweets)):
-            if(i is max_tweets):
+    def __get_last_month_tweets(self,screen_name):
+        
+        self.timeline = self.twitter_api.GetUserTimeline(screen_name=screen_name, count=200)
+        earliest_tweet = min(self.timeline, key=lambda x: x.id).id
+        self.month = self.timeline[0].created_at.split()[1]
+        end = False
+        
+        while not end:
+            tweets = self.twitter_api.GetUserTimeline(
+                screen_name=screen_name, max_id=earliest_tweet, count=200
+            )
+            new_earliest = min(tweets, key=lambda x: x.id).id
+
+            if not tweets or new_earliest == earliest_tweet:
                 break
-            tweets_text.append(tweets[i].text)
-            
-        return tweets_text
+            else:
+                earliest_tweet = new_earliest
+#                print("getting tweets before:", earliest_tweet)
+                
+                for t in tweets:
+                    if self.__tweet_is_from_last_month(t):
+                        self.timeline.append(t)
+                    else:
+                        end = True
+                        break
+
+        self.timeline = [t.text for t in self.timeline]
+        
     
-    def parse_list_tweets_to_string(self,tweets_list):
+                
+    def __tweet_is_from_last_month(self,tweet):
+        actualmonth = self.month
+        today = int(date.today().day) 
+        day = int(tweet.created_at.split()[2])
+        month = tweet.created_at.split()[1]
         
-        if(type(tweets_list) is not list):
-            raise(TypeError)
+        return not (month != self.month and day < today)
+        
+        
+    def __filter_text(self):
+        punctuation= '!#$%&()*+,-./:;<=>?@[\]^_{|}~'
+        pattern = re.compile('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+')
+        
+        self.timeline = [pattern.sub('',t) for t in self.timeline]
+        self.timeline = [t.translate(str.maketrans('', '', punctuation)) for t in self.timeline]
+        
+        
+    def __make_data(self):
+        
+        counts = {}
+        stop_words = set(stopwords.words(self.language))
+        for t in self.timeline:
+            words = t.split()
+
+            for word in words:
+                if word not in stop_words:
+                    if word in counts:
+                        counts[word]['count'] += 1
+                        counts[word]['tweetsContaining'].append(t)
+                    else:
+                        counts[word] = {}
+                        counts[word]['count'] = 1
+                        counts[word]['tweetsContaining'] = []
+                        counts[word]['tweetsContaining'].append(t)
+                        
+        
+        sorted_keys = sorted(counts, key=lambda x: (counts[x]['count']),reverse=True)
+        orderedDict = collections.OrderedDict()
+        
+        for key in sorted_keys:
+            orderedDict[key] = counts[key]
             
-        tweets_string = ""
-        for tweet in tweets_list:
-            tweets_string = tweets_string + " " + tweet
+        return orderedDict
         
-        return tweets_string
-    
-    def top_20_repetitive_word_counter(self):
-        tweets_text = self.get_last_50_tweets() 
-
-        if(len(tweets_text) is 0):
-            return None
-        tweets_text = self.parse_list_tweets_to_string(tweets_text)
-        values = word_counter(tweets_text, self.language)
         
-        sorted_list = sorted(values.items(), key=operator.itemgetter(1))
-        sorted_list.reverse()
+    def get_final_data(self,user):
+            self.__get_last_month_tweets(user)
+            self.__filter_text()
+            return self.__make_data()
         
-        top_20_values = []
-        stop_counter_condition = 0
-        for i in range(0,len(sorted_list)):
-            if(stop_counter_condition==20):
-                break
-            top_20_values.append(sorted_list[i]) 
-            stop_counter_condition += 1 
-            
-
         
-        return top_20_values
 
-
-def run():
-    """Entry point for console_scripts
-    """
 
 if __name__ == "__main__":
+
+    user_input = sys.argv[1]
     
-    from nltk.corpus import stopwords
-
-    arguments = sys.argv[1:]
-    count = len(arguments)
-    print(arguments)
-
-    model = twitter_word_counter(arguments[0], 'spanish')
-    result = model.top_20_repetitive_word_counter()
-    print(result)
-    run()
+    twitter_counter = twitter_word_counter('english')
+    
+    data = twitter_counter.get_final_data(user_input)
+    
+    #print(json.dumps(data, indent=4))
+    print(data.keys())
+    
