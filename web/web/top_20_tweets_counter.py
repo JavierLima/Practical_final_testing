@@ -24,13 +24,21 @@ class twitter_word_counter(object):
         
     def __get_last_month_tweets(self,screen_name):
         
-        self.timeline = self.twitter_api.GetUserTimeline(screen_name=screen_name, count=200)
+        try:
+            self.timeline = self.twitter_api.GetUserTimeline(screen_name=screen_name, count=200)
+        except:
+            return[]
+            
         earliest_tweet = min(self.timeline, key=lambda x: x.id).id
         self.month = self.timeline[0].created_at.split()[1]
         end = False
         
         while not end:
-            tweets = self.twitter_api.GetUserTimeline(screen_name=screen_name, max_id=earliest_tweet, count=200)
+            try:
+                tweets = self.twitter_api.GetUserTimeline(screen_name=screen_name, max_id=earliest_tweet, count=200)
+            except:
+                return[]
+                
             new_earliest = min(tweets, key=lambda x: x.id).id
 
             if not tweets or new_earliest == earliest_tweet:
