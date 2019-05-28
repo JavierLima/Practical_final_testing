@@ -35,7 +35,7 @@ class twitter_word_counter(object):
         
         while not end:
             try:
-                tweets = self.twitter_api.GetUserTimeline(screen_name=screen_name, max_id=earliest_tweet, count=200)
+                tweets = self.twitter_api.GetUserTimeline(screen_name=screen_name, max_id=earliest_tweet, count=200, include_rts=False)
             except:
                 return[]
                 
