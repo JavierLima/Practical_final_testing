@@ -22,9 +22,16 @@ class twitter_word_counter(object):
 
         
     def __get_last_month_tweets(self,screen_name):
-        
+        '''
+            Makes petitions to twitter api until all tweets from last month are gathered
+            
+            @parameters: 
+                screen_name: nombre de usuario
+            @returns: 
+                list with all tweets
+        '''
         try:
-            self.timeline = self.twitter_api.GetUserTimeline(screen_name=screen_name, count=200)
+            self.timeline = self.twitter_api.GetUserTimeline(screen_name=screen_name, count=200,include_rts=False)
         except:
             return[]
             
@@ -67,7 +74,16 @@ class twitter_word_counter(object):
         
         
     def __filter_text(self,unfiltered_timeline):
-        punctuation= '!#$%&()*+,-./:;<=>¿¡?@[\]^_{|}~'
+        '''
+            Removes full timeline punctuation and url text 
+            
+            @parameters:
+                list with raw tweets 
+            @returns: 
+                list with cleaned tweets
+        '''
+        
+        punctuation= '!#$%&()*+,-./:;<=>¿¡?@[\]^_{|}~"'
         pattern = re.compile('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+')
         
         unfiltered_timeline = [pattern.sub('',t) for t in unfiltered_timeline] #
@@ -77,6 +93,38 @@ class twitter_word_counter(object):
         
         
     def __make_data(self, filtered_timeline):
+    def __make_data(self, filtered_timeline, limit=200):
+        '''
+            Finds word ocurrences in tweets list
+            
+            @parameters:
+                list with cleaned tweets 
+            @returns: 
+                ordered dictionary with form:
+                    
+                   {
+                        word:
+                            {
+                                count: 2,
+                                tweets: 
+                                    [  
+                                        'tweet1',
+                                        'tweet2'
+                                    ]
+                            }
+                        word2:
+                            {
+                                count: 4,
+                                tweets: 
+                                    [  
+                                        'tweet1',
+                                        'tweet2'
+                                    ]
+                            }
+                    }
+                            
+                            
+        '''
         
         counts = {}
         stop_words = set(stopwords.words(self.language))
