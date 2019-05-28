@@ -127,27 +127,33 @@ class twitter_word_counter(object):
         '''
         
         counts = {}
-        stop_words = set(stopwords.words(self.language))
-        for t in filtered_timeline:
-            words = t.split()
+        stop_words = set(stopwords.words('english')).union(stopwords.words('spanish'))
+        for tweet in filtered_timeline:
+            words = tweet.split()
 
             for word in words:
+                word = word.lower()
                 if word not in stop_words:
                     if word in counts:
                         counts[word]['count'] += 1
-                        counts[word]['tweetsContaining'].append(t)
+                        counts[word]['tweetsContaining'].append(tweet)
                     else:
                         counts[word] = {}
                         counts[word]['count'] = 1
                         counts[word]['tweetsContaining'] = []
-                        counts[word]['tweetsContaining'].append(t)
+                        counts[word]['tweetsContaining'].append(tweet)
                         
         
         sorted_keys = sorted(counts, key=lambda x: (counts[x]['count']),reverse=True)
         orderedDict = collections.OrderedDict()
         
+        limitCount = 0
+        
         for key in sorted_keys:
             orderedDict[key] = counts[key]
+            limitCount += 1
+            if limitCount > limit:
+                break
             
         return orderedDict
         
