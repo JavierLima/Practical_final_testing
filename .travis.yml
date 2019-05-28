@@ -28,7 +28,7 @@ script:
    - coverage report code_folder/tests/*.py
    - python3.7 web/manage.py runserver &
    - sleep 10
-   - curl localhost:8000
+#   - curl localhost:8000
 
 after_success:
    - cd code_folder/tests/features
