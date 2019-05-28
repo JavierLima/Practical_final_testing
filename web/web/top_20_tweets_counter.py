@@ -107,7 +107,7 @@ if __name__ == "__main__":
 
     user_input = sys.argv[1]
     
-    twitter_counter = twitter_word_counter('english')
+    twitter_counter = twitter_word_counter('spanish')
     
     data = twitter_counter.get_final_data(user_input)
     

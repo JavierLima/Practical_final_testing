@@ -22,7 +22,7 @@ def home(request):
 #            result = model.top_20_repetitive_word_counter()
             
             
-            twitter_counter = twitter_word_counter('english')
+            twitter_counter = twitter_word_counter('spanish')
             result = twitter_counter.get_final_data(form.cleaned_data['your_name'])
             
             print(result)
