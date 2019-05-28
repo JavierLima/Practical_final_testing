@@ -15,10 +15,9 @@ import collections
 class twitter_word_counter(object):
     
     def __init__(self, language):
-        self.twitter_api = twitter.Api('gz2EucWLrJHTX2GjuMFxYN2la','e0vmSGeIlnHWbVGPO2YbfiPMUiZXh9DQDBML2fu0tqOoqylUXx','1115702759888523265-bbLQl3rRdu9beHs1UoyRXUZZfkqWv6','EttVVAmzpgvd6wnSO596xUIEzL7zGmqptXUQm6D2IACKS')
+        self.twitter_api = twitter.Api('gz2EucWLrJHTX2GjuMFxYN2la','e0vmSGeIlnHWbVGPO2YbfiPMUiZXh9DQDBML2fu0tqOoqylUXx','1115702759888523265-bbLQl3rRdu9beHs1UoyRXUZZfkqWv6','EttVVAmzpgvd6wnSO596xUIEzL7zGmqptXUQm6D2IACKS', tweet_mode='extended')
         self.language = language
         self.timeline = []
-
         
     def __get_last_month_tweets(self,screen_name):
         
@@ -28,9 +27,7 @@ class twitter_word_counter(object):
         end = False
         
         while not end:
-            tweets = self.twitter_api.GetUserTimeline(
-                screen_name=screen_name, max_id=earliest_tweet, count=200
-            )
+            tweets = self.twitter_api.GetUserTimeline(screen_name=screen_name, max_id=earliest_tweet, count=200)
             new_earliest = min(tweets, key=lambda x: x.id).id
 
             if not tweets or new_earliest == earliest_tweet:
@@ -46,7 +43,7 @@ class twitter_word_counter(object):
                         end = True
                         break
 
-        self.timeline = [t.text for t in self.timeline]
+        self.timeline = [t.full_text for t in self.timeline]
         
     
                 
