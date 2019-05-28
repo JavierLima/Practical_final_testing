@@ -18,6 +18,7 @@ class twitter_word_counter(object):
         self.twitter_api = twitter.Api('gz2EucWLrJHTX2GjuMFxYN2la','e0vmSGeIlnHWbVGPO2YbfiPMUiZXh9DQDBML2fu0tqOoqylUXx','1115702759888523265-bbLQl3rRdu9beHs1UoyRXUZZfkqWv6','EttVVAmzpgvd6wnSO596xUIEzL7zGmqptXUQm6D2IACKS', tweet_mode='extended')
         self.language = language
         self.timeline = []
+
         
     def __get_last_month_tweets(self,screen_name):
         
@@ -43,7 +44,7 @@ class twitter_word_counter(object):
                         end = True
                         break
 
-        self.timeline = [t.full_text for t in self.timeline]
+        return [t.full_text for t in self.timeline]
         
     
                 
@@ -56,19 +57,21 @@ class twitter_word_counter(object):
         return not (month != self.month and day < today)
         
         
-    def __filter_text(self):
+    def __filter_text(self,unfiltered_timeline):
         punctuation= '!#$%&()*+,-./:;<=>¿¡?@[\]^_{|}~'
         pattern = re.compile('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+')
         
-        self.timeline = [pattern.sub('',t) for t in self.timeline] #
-        self.timeline = [t.translate(str.maketrans('', '', punctuation)) for t in self.timeline]
+        unfiltered_timeline = [pattern.sub('',t) for t in unfiltered_timeline] #
+        unfiltered_timeline = [t.translate(str.maketrans('', '', punctuation)) for t in unfiltered_timeline]
+        
+        return unfiltered_timeline
         
         
-    def __make_data(self):
+    def __make_data(self, filtered_timeline):
         
         counts = {}
         stop_words = set(stopwords.words(self.language))
-        for t in self.timeline:
+        for t in filtered_timeline:
             words = t.split()
 
             for word in words:
@@ -93,9 +96,9 @@ class twitter_word_counter(object):
         
         
     def get_final_data(self,user):
-            self.__get_last_month_tweets(user)
-            self.__filter_text()
-            return self.__make_data()
+            timeline = self.__get_last_month_tweets(user)
+            filtered_timeline = self.__filter_text(unfiltered_timeline=timeline)
+            return self.__make_data(filtered_timeline)
         
         
 
