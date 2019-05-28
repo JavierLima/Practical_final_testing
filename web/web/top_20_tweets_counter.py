@@ -57,10 +57,10 @@ class twitter_word_counter(object):
         
         
     def __filter_text(self):
-        punctuation= '!#$%&()*+,-./:;<=>?@[\]^_{|}~'
+        punctuation= '!#$%&()*+,-./:;<=>¿¡?@[\]^_{|}~'
         pattern = re.compile('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+')
         
-        self.timeline = [pattern.sub('',t) for t in self.timeline]
+        self.timeline = [pattern.sub('',t) for t in self.timeline] #
         self.timeline = [t.translate(str.maketrans('', '', punctuation)) for t in self.timeline]
         
         
