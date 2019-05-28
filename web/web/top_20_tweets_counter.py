@@ -63,7 +63,7 @@ class twitter_word_counter(object):
         return [t.full_text for t in self.timeline]
         
     
-                
+    
     def __tweet_is_from_last_month(self,tweet):
         actualmonth = self.month
         today = int(date.today().day) 
@@ -92,7 +92,6 @@ class twitter_word_counter(object):
         return unfiltered_timeline
         
         
-    def __make_data(self, filtered_timeline):
     def __make_data(self, filtered_timeline, limit=200):
         '''
             Finds word ocurrences in tweets list
@@ -161,7 +160,7 @@ class twitter_word_counter(object):
     def get_final_data(self,user):
             timeline = self.__get_last_month_tweets(user)
             filtered_timeline = self.__filter_text(unfiltered_timeline=timeline)
-            return self.__make_data(filtered_timeline)
+            return self.__make_data(filtered_timeline, limit=100)
         
         
 
@@ -170,10 +169,7 @@ if __name__ == "__main__":
 
     user_input = sys.argv[1]
     
-    twitter_counter = twitter_word_counter('spanish')
+    twitter_counter = twitter_word_counter()
     
     data = twitter_counter.get_final_data(user_input)
-    
-    #print(json.dumps(data, indent=4))
-    print(data.keys())
     
