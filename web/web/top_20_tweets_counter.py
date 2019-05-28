@@ -16,9 +16,8 @@ import collections
     
 class twitter_word_counter(object):
     
-    def __init__(self, language):
+    def __init__(self):
         self.twitter_api = twitter.Api('gz2EucWLrJHTX2GjuMFxYN2la','e0vmSGeIlnHWbVGPO2YbfiPMUiZXh9DQDBML2fu0tqOoqylUXx','1115702759888523265-bbLQl3rRdu9beHs1UoyRXUZZfkqWv6','EttVVAmzpgvd6wnSO596xUIEzL7zGmqptXUQm6D2IACKS', tweet_mode='extended')
-        self.language = language
         self.timeline = []
 
         
