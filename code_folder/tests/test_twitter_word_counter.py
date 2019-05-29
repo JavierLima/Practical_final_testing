@@ -6,6 +6,7 @@ import unittest
 from mock import MagicMock
 from requests.exceptions import HTTPError
 from code_folder.src.twitter_word_counter import twitter_word_counter
+from collections import OrderedDict
 
 
 class KnownValues(unittest.TestCase):
