@@ -5,19 +5,31 @@ Feature: testing nustraweb
     Given we visit our localhost
     Then I see the tittle web Twitter top words finder
 
-  Scenario: search a valid username
+  
+  Scenario Outline: Given the inputs below search a valid username pressing with the mouse
     Given we visit our localhost
     And write username "LalindeAlvaro"
     When we press search
-    Then the webpage content must be shown the word "concepto" with a 
-          frequency of "3" that appears in these tweets "['En tanto en cuanto nos den lo que es nuestro discutiremos el concepto con el fin de discutirlo', 'El concepto es el concepto', 'El concepto es el concepto']"
+    Then the webpage content must be shown the word "concepto" 
+    And with a frequency of "3" 
+    And the word appears in these tweets "<List>"
 
-  Scenario: search a valid username
+    Examples: Input Variables
+      |List                                                                                                                                                            |
+      |['En tanto en cuanto nos den lo que es nuestro discutiremos el concepto con el fin de discutirlo', 'El concepto es el concepto', 'El concepto es el concepto']  |
+      
+  Scenario Outline: Given the inputs below search a valid username pressing the keyboard
     Given we visit our localhost
     And write username "LalindeAlvaro"
     When we press enter
-    Then the webpage content must be shown "{'concepto': {'count': '3', 'tweetsContaining': ['En tanto en cuanto nos den lo que es nuestro discutiremos el concepto con el fin de discutirlo', 'El concepto es el concepto', 'El concepto es el concepto']}, 'eh': {'count': '2', 'tweetsContaining': ['Los hijos estudiando la carrera en los mejores colegios de Kanfort con aprovechamiento eh Ay Carmiña tú en Cambados y yo en el País Vasco', 'Vamos a llevarnos bien porque si no van a haber hondonadas de hostias aquí eh']}, 'digo': {'count': '2', 'tweetsContaining': ['El señor Villambrosa que es un gentelmán me dijo que viniera a solucionar esto con pacifismo así que A lo mismo que le digo una cosa le digo la otra y B se levanta y pone el arma sobre la mesa y cuidao tocándose las partes que igual te viene la C', 'El señor Villambrosa que es un gentelmán me dijo que viniera a solucionar esto con pacifismo así que A lo mismo que le digo una cosa le digo la otra y B se levanta y pone el arma sobre la mesa y cuidao tocándose las partes que igual te viene la C']}, 'sumachingún': {'count': '1', 'tweetsContaining': ['Esto es una sumachingún']}, 'cuanto': {'count': '1', 'tweetsContaining': ['En tanto en cuanto nos den lo que es nuestro discutiremos el concepto con el fin de discutirlo']}, 'den': {'count': '1', 'tweetsContaining': ['En tanto en cuanto nos den lo que es nuestro discutiremos el concepto con el fin de discutirlo']}, 'discutiremos': {'count': '1', 'tweetsContaining': ['En tanto en cuanto nos den lo que es nuestro discutiremos el concepto con el fin de discutirlo']}, 'fin': {'count': '1', 'tweetsContaining': ['En tanto en cuanto nos den lo que es nuestro discutiremos el concepto con el fin de discutirlo']}, 'discutirlo': {'count': '1', 'tweetsContaining': ['En tanto en cuanto nos den lo que es nuestro discutiremos el concepto con el fin de discutirlo']}, 'disculpe': {'count': '1', 'tweetsContaining': ['Disculpe agente se refiere a antes en el tiempo o antes en el espacio']}}"
+    Then the webpage content must be shown the word "sumachingún" 
+    And with a frequency of "1" 
+    And the word appears in these tweets "<List>"
 
+    Examples: Input Variables
+      |List                         |
+      |['Esto es una sumachingún']  |
+      
   Scenario: search username with empty value
     Given we visit our localhost
     When we press enter

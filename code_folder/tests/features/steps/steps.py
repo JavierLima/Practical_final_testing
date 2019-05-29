@@ -40,8 +40,8 @@ def check_title(context):
   assert element.text == "Twitter top words finder"
      
     
-@then('the webpage content must be shown the word "{expected_key}" with a frequency of "{expected_number}" that appears in these tweets "{expected_tweets}')
-def check_result(context,expected_key,expected_number,expected_tweets):
+@then('the webpage content must be shown the word "{expected_word}"')
+def check_result_and_get_content(context,expected_word):
   
   element = context.driver.find_elements_by_css_selector('table td')#xpath body
   result_dict = {}
@@ -60,7 +60,6 @@ def check_result(context,expected_key,expected_number,expected_tweets):
       new_number = True
       
     elif new_number:
-      print(element[i].text)
       rest_tweets = int(element[i].text)
       result_dict[actual_word]['count'] = element[i].text
       new_number = False
@@ -72,10 +71,20 @@ def check_result(context,expected_key,expected_number,expected_tweets):
       if rest_tweets is 0:
         new_word = True
       
-  print(result)
+  context.result_dict = result_dict
+  context.key = expected_word
   
-  assert result_dict == json.loads(expected)
+  assert result_dict[expected_word] != None
 
+@then('with a frequency of "{expected_number}"')
+def chech_frequency(context,expected_number):
+  assert context.result_dict[context.key]['count'] == expected_number
+  
+@then('the word appears in these tweets {expected_tweets}')
+def chech_frequency(context,expected_tweets):
+  print(type(json.loads(expected_tweets)))
+  print(type(context.result_dict[context.key]['tweetsContaining']))
+  assert str(context.result_dict[context.key]['tweetsContaining']) == json.loads(expected_tweets)
   
 @then('it should have no content')
 def catch_no_body_execption(context):
