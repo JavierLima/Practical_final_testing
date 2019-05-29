@@ -10,8 +10,8 @@ import twitter
 import re
 import string
 import operator
-import collections
-import numpy
+from collections import OrderedDict
+
 
 #hey
 
@@ -99,7 +99,7 @@ class twitter_word_counter(object):
                         
         
         sorted_keys = sorted(counts, key=lambda x: (counts[x]['count']),reverse=True)
-        orderedDict = collections.OrderedDict()
+        orderedDict = OrderedDict()
         
         top_10 = 10
         for key in sorted_keys:
