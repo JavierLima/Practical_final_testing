@@ -1,0 +1,134 @@
+<!-- <form action="/your-name/" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit">
+</form> -->
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+ 
+    <title>TwTopWords</title>
+ 
+  	  {# Cargamos la librería #}
+	  {% load bootstrap4 %}
+ 
+	  {# CSS Bootstrap #}
+	  {% bootstrap_css %}
+ 
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Twitter top words finder</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+<!--       <li class="nav-item active">
+     <form method="post" class="form-inline my-2 my-lg-0">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit" class="btn btn-success">Save person</button>
+    </form>
+      </li> -->
+    <form class="form-inline my-2 my-lg-0" method="post">
+    {% csrf_token %}
+    {{ form }}
+      <button id="search_button" class="btn btn-outline-success my-2 my-sm-0 ml-1" type="submit">Search</button>
+    </form>
+
+       <a id="reset_button"
+    class="btn btn-outline-primary my-2 my-sm-0 ml-1"
+    href="/">
+    Reset
+        </a>
+      <!-- <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Language
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li> -->
+    </ul>
+
+  </div>
+</nav>
+
+
+
+
+<!--     <table class="table pl-3 pr-3"> -->
+<!--       <thead> -->
+<!--         <tr> -->
+<!--           <th scope="col">Nombre</th> -->
+<!--           <th scope="col">Numero</th> -->
+<!--         </tr> -->
+<!--     </thead> -->
+<!--       <tbody> -->
+<!--         {% for k in data %} -->
+<!--         <tr> -->
+<!--           <td>{{ k.0 }}</td> -->
+<!--             <td>{{ k.1 }}</td> -->
+<!--         </tr> -->
+<!--         {% endfor %} -->
+<!--     </tbody> -->
+<!--   </table> -->
+
+  {% if data %}
+  
+    {% for k in data.items %}
+  
+    <table class="table pl-3 pr-3">
+      <thead>
+        <tr>
+          <th scope="col">Nombre</th>
+          <th scope="col">Numero</th>
+        </tr>
+    </thead>
+      <tbody>
+        <tr>
+            <td scope="col"><b>{{ k.0 }}<b></td>
+            <td scope="col"><b>{{ k.1.count }}<b></td>
+        </tr>
+    </tbody>
+  </table>
+  
+  <table class="table pl-3 pr-3">
+    <thead>
+      <tr>
+        <th scope="col">Tweeet</th>
+      </tr>
+  </thead>
+    <tbody>
+    {% for t in k.1.tweetsContaining %}
+      <tr>
+          <td>{{ t }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<br>
+<br>
+  
+    
+
+    {% endfor %}
+    {% endif %}
+
+
+
+  	{% bootstrap_javascript jquery='full' %}
+  </body>
