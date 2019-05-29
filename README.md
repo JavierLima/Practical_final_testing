@@ -22,11 +22,6 @@ En la consola de python:
 ```
 
 
-## Levantar servidor
-```python
-  >>> python3.7 web/manage.py runserver &
-```
-
 
 ## Añadir credenciales
  
@@ -39,7 +34,14 @@ api = twitter.Api('ACCESS_TOKEN_KEY',
                   'CONSUMER_SECRET')
 ```
 
-
+## Añadir un driver de chrome con la versión correspondiente 
+ 
+ Asegurarse de la versión de chrome que está instalada en su ordenador y sustituirlo por your_chrome_version
+```python
+ wget http://chromedriver.storage.googleapis.com/your_chrome_version/chromedriver_linux64.zip
+ unzip chromedriver_linux64.zip -d code_folder/tests/features/driver
+ chmod +x code_folder/tests/features/driver/chromedriver
+```
 ## Test Unitarios y mock
 
 En la ruta del proyecto:
@@ -50,6 +52,11 @@ En la ruta del proyecto:
   >>> python -m unittest code_folder.test_twitter_word_counter.KnownValues
   >>> coverage run --source=code_folder/tests -m unittest discover -s code_folder/tests
   >>> coverage report code_folder/tests/*.py
+```
+
+## Levantar servidor
+```python
+  >>> python3.7 web/manage.py runserver &
 ```
 
 ## BDD
