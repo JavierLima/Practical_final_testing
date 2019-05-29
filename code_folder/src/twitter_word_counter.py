@@ -11,6 +11,7 @@ import re
 import string
 import operator
 import collections
+import numpy
 
 #hey
 
