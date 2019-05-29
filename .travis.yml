@@ -12,23 +12,23 @@ addons:
 cache: pip
 
 before_install:
- #  - wget http://chromedriver.storage.googleapis.com/74.0.3729.6/chromedriver_linux64.zip
-  # - unzip chromedriver_linux64.zip -d code_folder/tests/features/driver
-  # - chmod +x code_folder/tests/features/driver/chromedriver
- #  - export CHROME_BIN=chromium-browser
+   - wget http://chromedriver.storage.googleapis.com/74.0.3729.6/chromedriver_linux64.zip
+   - unzip chromedriver_linux64.zip -d code_folder/tests/features/driver
+   - chmod +x code_folder/tests/features/driver/chromedriver
+   - export CHROME_BIN=chromium-browser
 
 install: 
    - pip install -r requirements.txt
- #  - pip install django --quiet
+   - pip install django --quiet
 
 script: 
    - python -m nltk.downloader 'stopwords'
-#   - python -m unittest code_folder.tests.test_word_counter.KnownValues
+   - python -m unittest code_folder.tests.test_word_counter.KnownValues
    - python -m unittest code_folder.tests.test_twitter_word_counter.KnownValues
    - coverage run --source=code_folder/tests -m unittest discover -s code_folder/tests
    - coverage report code_folder/tests/*.py
    - python3.7 web/manage.py runserver &
-#   - sleep 10
+   - sleep 10
   - curl localhost:8000
 
 after_success:
