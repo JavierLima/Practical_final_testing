@@ -6,8 +6,6 @@ import unittest
 from mock import MagicMock
 from requests.exceptions import HTTPError
 from code_folder.src.filter_text_function import filter_text
-from code_folder.src.twitter_word_counter import twitter_word_counter
-
 
 class KnownValues(unittest.TestCase):
     def test_filter_text_several_tweets(self):

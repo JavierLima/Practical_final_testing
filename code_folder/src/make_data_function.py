@@ -20,7 +20,7 @@ import re
 import string
 import collections
 
-def __make_data(self, filtered_timeline):
+def make_data(self, filtered_timeline):
         
         counts = {}
         stop_words = set(stopwords.words(self.language))
