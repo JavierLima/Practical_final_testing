@@ -40,19 +40,44 @@ def check_title(context):
   assert element.text == "Twitter top words finder"
      
     
-@then('it should have a textfield "{expected}"')
-def check_result(context,expected):
+@then('the webpage content must be shown the word "{expected_key}" with a frequency of "{expected_number}" that appears in these tweets "{expected_tweets}')
+def check_result(context,expected_key,expected_number,expected_tweets):
   
-  element = context.driver.find_element_by_xpath('/html/body/table/tbody')#xpath body
+  element = context.driver.find_elements_by_css_selector('table td')#xpath body
   result_dict = {}
-
-  for row in element.find_elements_by_tag_name('tr'):
-    result_dict[row.find_element_by_xpath('td[1]').text] = row.find_element_by_xpath('td[2]').text
+  new_word = True
+  new_number = False
+  actual_word = ''
+  rest_tweets = 0
+  
+  for i in range(0,len(element)):
+    if new_word:
+      actual_word = element[i].text
+      result_dict[element[i].text] = {}
+      result_dict[actual_word]['count'] = '' 
+      result_dict[actual_word]['tweetsContaining'] = []
+      new_word = False
+      new_number = True
+      
+    elif new_number:
+      print(element[i].text)
+      rest_tweets = int(element[i].text)
+      result_dict[actual_word]['count'] = element[i].text
+      new_number = False
+      
+    else:
+      result_dict[actual_word]['tweetsContaining'].append(element[i].text)
+      rest_tweets -= 1
+      
+      if rest_tweets is 0:
+        new_word = True
+      
+  print(result)
   
   assert result_dict == json.loads(expected)
 
-
-@then('it should have no body')
+  
+@then('it should have no content')
 def catch_no_body_execption(context):
   try:
     context.driver.find_element_by_xpath('/html/body/table/tbody')
