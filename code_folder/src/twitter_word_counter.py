@@ -94,7 +94,7 @@ class twitter_word_counter(object):
         return unfiltered_timeline
         
         
-    def make_data(self, filtered_timeline, limit=200):
+    def make_data(self, filtered_timeline, limit=10):
         '''
             Finds word ocurrences in tweets list
             
@@ -146,24 +146,23 @@ class twitter_word_counter(object):
                         
         
         sorted_keys = sorted(counts, key=lambda x: (counts[x]['count']),reverse=True)
-        orderedDict = collections.OrderedDict()
+        orderedDict = OrderedDict()
         
         limitCount = 0
-        top_10 = 10
+        
         for key in sorted_keys:
-            if(top_10 == 0):
-                break
             orderedDict[key] = counts[key]
-            top_10 -= 1
-        print(orderedDict)
+            limitCount += 1
+            if limitCount == limit:
+                break
+     
         return orderedDict
         
         
     def get_final_data(self,user):
-            timeline = self.get_last_month_tweets(user)
-            filtered_timeline = self.filter_text(unfiltered_timeline=timeline)
-            return self.make_data(filtered_timeline, limit=100)
-        
+        timeline = self.get_last_month_tweets(user)
+        filtered_timeline = self.filter_text(unfiltered_timeline=timeline)
+        return self.make_data(filtered_timeline)
         
 
 
