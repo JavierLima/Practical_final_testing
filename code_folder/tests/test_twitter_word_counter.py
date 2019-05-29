@@ -1,7 +1,7 @@
 ﻿#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-
+#librerias
 import unittest
 from mock import MagicMock
 from requests.exceptions import HTTPError
