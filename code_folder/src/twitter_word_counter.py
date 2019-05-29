@@ -18,16 +18,22 @@ from collections import OrderedDict
     
 class twitter_word_counter(object):
     
-    def __init__(self, language):
+    def __init__(self):
         self.twitter_api = twitter.Api('gz2EucWLrJHTX2GjuMFxYN2la','e0vmSGeIlnHWbVGPO2YbfiPMUiZXh9DQDBML2fu0tqOoqylUXx','1115702759888523265-bbLQl3rRdu9beHs1UoyRXUZZfkqWv6','EttVVAmzpgvd6wnSO596xUIEzL7zGmqptXUQm6D2IACKS', tweet_mode='extended')
-        self.language = language
         self.timeline = []
 
         
     def get_last_month_tweets(self,screen_name):
-        
+        '''
+            Makes petitions to twitter api until all tweets from last month are gathered
+            
+            @parameters: 
+                screen_name: nombre de usuario
+            @returns: 
+                list with all tweets
+        '''
         try:
-            self.timeline = self.twitter_api.GetUserTimeline(screen_name=screen_name, count=200)
+            self.timeline = self.twitter_api.GetUserTimeline(screen_name=screen_name, count=200,include_rts=False)
         except:
             return[]
             
@@ -37,7 +43,7 @@ class twitter_word_counter(object):
         
         while not end:
             try:
-                tweets = self.twitter_api.GetUserTimeline(screen_name=screen_name, max_id=earliest_tweet, count=200)
+                tweets = self.twitter_api.GetUserTimeline(screen_name=screen_name, max_id=earliest_tweet, count=200, include_rts=False)
             except:
                 return[]
                 
@@ -59,7 +65,7 @@ class twitter_word_counter(object):
         return [t.full_text for t in self.timeline]
         
     
-                
+    
     def tweet_is_from_last_month(self,tweet):
         actualmonth = self.month
         today = int(date.today().day) 
@@ -70,7 +76,16 @@ class twitter_word_counter(object):
         
         
     def filter_text(self,unfiltered_timeline):
-        punctuation= '!#$%&()*+,-./:;<=>¿¡?@[\]^_{|}~'
+        '''
+            Removes full timeline punctuation and url text 
+            
+            @parameters:
+                list with raw tweets 
+            @returns: 
+                list with cleaned tweets
+        '''
+        
+        punctuation= '!#$%&()*+,-./:;<=>¿¡?@[\]^_{|}~"'
         pattern = re.compile('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+')
         
         unfiltered_timeline = [pattern.sub('',t) for t in unfiltered_timeline] #
@@ -79,38 +94,67 @@ class twitter_word_counter(object):
         return unfiltered_timeline
         
         
-    def make_data(self, filtered_timeline):
+    def make_data(self, filtered_timeline, limit=200):
+        '''
+            Finds word ocurrences in tweets list
+            
+            @parameters:
+                list with cleaned tweets 
+            @returns: 
+                ordered dictionary with form:
+                    
+                   {
+                        word:
+                            {
+                                count: 2,
+                                tweets: 
+                                    [  
+                                        'tweet1',
+                                        'tweet2'
+                                    ]
+                            }
+                        word2:
+                            {
+                                count: 4,
+                                tweets: 
+                                    [  
+                                        'tweet1',
+                                        'tweet2'
+                                    ]
+                            }
+                    }
+                            
+                            
+        '''
         
         counts = {}
-        stop_words = set(stopwords.words(self.language))
-        for t in filtered_timeline:
-            words = t.split()
+        stop_words = set(stopwords.words('english')).union(stopwords.words('spanish'))
+        for tweet in filtered_timeline:
+            words = tweet.split()
 
             for word in words:
+                word = word.lower()
                 if word not in stop_words:
                     if word in counts:
                         counts[word]['count'] += 1
-                        counts[word]['tweetsContaining'].append(t)
+                        counts[word]['tweetsContaining'].append(tweet)
                     else:
                         counts[word] = {}
                         counts[word]['count'] = 1
                         counts[word]['tweetsContaining'] = []
-                        counts[word]['tweetsContaining'].append(t)
+                        counts[word]['tweetsContaining'].append(tweet)
                         
         
         sorted_keys = sorted(counts, key=lambda x: (counts[x]['count']),reverse=True)
-        orderedDict = OrderedDict()
+        orderedDict = collections.OrderedDict()
         
+        limitCount = 0
         top_10 = 10
         for key in sorted_keys:
             if(top_10 == 0):
                 break
             orderedDict[key] = counts[key]
             top_10 -= 1
-             
-           
-       
-            
         print(orderedDict)
         return orderedDict
         
@@ -118,10 +162,13 @@ class twitter_word_counter(object):
     def get_final_data(self,user):
             timeline = self.get_last_month_tweets(user)
             filtered_timeline = self.filter_text(unfiltered_timeline=timeline)
-            return self.make_data(filtered_timeline)
+            return self.make_data(filtered_timeline, limit=100)
         
         
 
+
+        
+        
 
 if __name__ == "__main__":
     run()
