@@ -16,7 +16,7 @@
 # scipy==1.0
 
 python-twitter
-nltk == 3.4
+nltk == 3.4.5
 requests == 2.21.0
 unittest2 == 1.1.0
 django 
